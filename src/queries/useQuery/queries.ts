@@ -18,17 +18,26 @@ import {
   GET_LESSONS_BY_UNIT,
   GET_MONTHLY_CHALLENGE_BY_USER_ID,
   GET_QUESTS_BY_USER_ID,
+  GET_SECTION_TREE,
 } from "../../constants/paths";
 import type { SectionType } from "../../Types/SectionType";
 import type { CourseProgressType } from "../../Types/CourseProgressType";
 import type { Exercise } from "../../Types/ExerciseType";
 import type { QuestType } from "../../Types/QuestType";
+import type { FlatSectionTree } from "../../Types/FlatSectionTree";
 
 export const qo = {
   section: (sectionId: number) =>
     queryOptions<SectionType>({
       queryKey: qk.section(sectionId),
       queryFn: () => sectionBatcher.fetch(sectionId),
+      staleTime: 60_000,
+    }),
+
+  sectionTree: (sectionId: number) =>
+    queryOptions<FlatSectionTree>({
+      queryKey: qk.sectionTree(sectionId),
+      queryFn: () => getData(GET_SECTION_TREE(sectionId)),
       staleTime: 60_000,
     }),
 
@@ -51,6 +60,13 @@ export const qo = {
     queryOptions<LessonType>({
       queryKey: qk.lesson(lessonId),
       queryFn: () => lessonBatcher.fetch(lessonId),
+      staleTime: 60_000,
+    }),
+
+  unit: (unitId: number) =>
+    queryOptions<UnitType>({
+      queryKey: qk.lesson(unitId),
+      queryFn: () => unitBatcher.fetch(unitId),
       staleTime: 60_000,
     }),
 
