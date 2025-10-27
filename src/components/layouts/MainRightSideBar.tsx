@@ -1,16 +1,16 @@
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { UserMainStats } from "../../features/Common/UserMainStats";
 import { QuestListWidget } from "../../features/Quests/QuestListWidget";
-import { useCurrentUser } from "../../queries/useQuery/Auth/useCurrentUser";
 import { useCourse } from "../../queries/useQuery/useCourse";
-import { useCourseProgress } from "../../queries/useQuery/useCourseProgress";
 import type { CourseType } from "../../Types/CourseType";
 import { ContentWidget } from "../atoms/Widget/ContentWidget";
+import { qo } from "../../queries/useQuery/queries";
 
 export function MainRightSideBar() {
-  const { data: currentUser } = useCurrentUser();
-  const courseId = currentUser?.currentCourseId;
+  const { data: currentUser } = useSuspenseQuery(qo.currentUser())
+  const courseId = currentUser.currentCourseId;
 
-  const { data: userCourseProgress } = useCourseProgress(courseId);
+  const { data: userCourseProgress } = useSuspenseQuery(qo.courseProgress(courseId))
   const { data: course } = useCourse(currentUser.currentCourseId);
 
   return (

@@ -1,9 +1,10 @@
 import { useNavigate, useParams } from "react-router";
 import { useCourse } from "../queries/useQuery/useCourse";
 import { useChangeCourse } from "../queries/mutations/useChangeCourse";
-import { useUserCourses } from "../queries/useQuery/useUserCourses";
 import type { CourseType } from "../Types/CourseType";
 import { useCallback } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "../queries/useQuery/queries";
 
 type useCoursesFlowReturn = {
   handleSelectCourse: (courseId: number) => void;
@@ -14,9 +15,9 @@ export function useCoursesFlow(): useCoursesFlowReturn {
   const navigate = useNavigate();
   const { data: allCourses } = useCourse("all");
   const { userId } = useParams<{ userId?: string }>();
-  const numUserId = userId ? Number(userId) : undefined;
+  const numUserId = userId ? Number(userId) : 0;
   const changeCourseMutation = useChangeCourse();
-  const { data: userCourses } = useUserCourses(numUserId);
+  const { data: userCourses } = useSuspenseQuery(qo.userCourses(numUserId))
   const coursesArray = numUserId ? userCourses : (allCourses as CourseType[]);
 
   const handleSelectCourse = useCallback(

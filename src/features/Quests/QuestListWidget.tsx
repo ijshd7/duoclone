@@ -1,17 +1,10 @@
-import { Spinner } from "../../components/atoms/Loading/Spinner";
-import { useQuests } from "../../queries/useQuery/useQuests";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { QuestListItem } from "./QuestListItem";
+import { qo } from "../../queries/useQuery/queries";
 
 export function QuestListWidget() {
-  const { data: quests, isLoading: isLoading, isError: isError } = useQuests();
 
-  if (!quests || isLoading || isError)
-    return (
-      <div className="w-full p-4 my-38 flex justify-center items-center">
-        <Spinner />
-      </div>
-    );
-
+  const {data: quests} = useSuspenseQuery(qo.quests())
   const isLast = (index: number) => index == quests.length - 1;
 
   return (

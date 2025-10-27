@@ -89,3 +89,6 @@ export const GET_PAGINATED_LEADERBOARD = (
   }`;
 
 // -------------------------------------------------------- //
+
+
+export const GET_SECTION_TREE = (sectionId: number) => API_PATH + `/catalog/${sectionId}/tree`

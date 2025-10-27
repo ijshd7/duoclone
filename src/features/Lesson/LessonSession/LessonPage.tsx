@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { ExerciseComponent } from "../../Exercise/ExerciseComponent.tsx";
-import { useExercises } from "../../../queries/useQuery/useExercises.tsx";
 import { SpinnerPage } from "../../../components/layouts/SpinnerPage.tsx";
 import { WideActionButton } from "../../../components/atoms/Button/WideActionButton.tsx";
 import { LessonHeader } from "../LessonHeader.tsx";
@@ -10,13 +9,15 @@ import { LessonResult } from "./LessonResult.tsx";
 import { BottomSheet } from "../../../effects/ModalSheet/BottomSheet.tsx";
 import { ExitConfirmationSheet } from "../ExitConfirmationSheet.tsx";
 import { useLessonFlow } from "../../../hooks/useLessonFlow.tsx";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "../../../queries/useQuery/queries.ts";
 
 export function LessonPage() {
   const { lessonId } = useParams<{ lessonId: string }>();
   const { position } = useParams<{ position: string }>();
   const id = Number(lessonId);
 
-  const { data: exercises, isLoading } = useExercises(id);
+  const { data: exercises, isLoading } = useSuspenseQuery(qo.exercises(id))
 
   const { lessonResponse, submitAnswer, optsState } = useLessonFlow({
     lessonId: lessonId,

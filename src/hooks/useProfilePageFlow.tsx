@@ -1,11 +1,10 @@
-import { useCurrentUser } from "../queries/useQuery/Auth/useCurrentUser";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useFollowCaches } from "../queries/useQuery/FollowQueries/useFollowCaches";
 import { useFollowers } from "../queries/useQuery/FollowQueries/useFollowers";
 import { useFollowingIds } from "../queries/useQuery/FollowQueries/useFollowing";
-import { useUser } from "../queries/useQuery/useUser";
-import { useUserCourses } from "../queries/useQuery/useUserCourses";
 import type { CourseType } from "../Types/CourseType";
 import type { UserType } from "../Types/UserType";
+import { qo } from "../queries/useQuery/queries";
 
 type useProfilePageFlowReturn = {
   isOwnPage: boolean;
@@ -21,11 +20,11 @@ type useProfilePageFlowReturn = {
 export function useProfilePageFlow(userId?: string): useProfilePageFlowReturn {
   const userIdNumber = userId ? parseInt(userId, 10) : 0;
 
-  const { data: pageUser, isLoading } = useUser(userIdNumber);
-  const { data: currentUser } = useCurrentUser();
+  const { data: pageUser } = useSuspenseQuery(qo.user(userIdNumber))
+  const { data: currentUser } = useSuspenseQuery(qo.currentUser())
   const { data: pageUserFollowers } = useFollowers(pageUser?.id ?? 0);
 
-  const { data: userCourses } = useUserCourses(userIdNumber);
+  const { data: userCourses } = useSuspenseQuery(qo.userCourses(pageUser.id))
 
   useFollowCaches(userIdNumber);
 
@@ -43,9 +42,7 @@ export function useProfilePageFlow(userId?: string): useProfilePageFlowReturn {
     !currentUser ||
     !pageUser ||
     !followers ||
-    !following ||
-    isLoading;
-
+    !following
   return {
     isOwnPage,
     isLoadingData,
