@@ -1,0 +1,20 @@
+import { Outlet } from "react-router";
+import { MainFooter } from "../../features/Common/MainFooter.tsx";
+import { MainLeftSidebar } from "./MainLeftSideBar.tsx";
+import { MainRightSideBar } from "./MainRightSideBar.tsx";
+
+export function MainLayout() {
+  return (
+    <>
+      <div className="min-h-dvh h-dvh bg-duoBackground scrollbar-duoGreen max-h-dvh lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] [scrollbar-gutter:stable_both-edges] overflow-y-auto overscroll-none">
+        <MainLeftSidebar />
+
+        <div className="flex flex-col lg:px-6 lg:items-end min-w-0">
+          <Outlet />
+        </div>
+        <MainFooter />
+        <MainRightSideBar />
+      </div>
+    </>
+  );
+}
