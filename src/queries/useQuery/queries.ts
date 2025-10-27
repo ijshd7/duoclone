@@ -13,6 +13,7 @@ import type { UserType } from "../../Types/UserType";
 import {
   GET_AUTH_ME,
   GET_AVATARS,
+  GET_COURSE_IDS_FOR_USER,
   GET_COURSE_PROGRESS,
   GET_EXERCISES_BY_LESSON,
   GET_LESSONS_BY_UNIT,
@@ -25,6 +26,7 @@ import type { CourseProgressType } from "../../Types/CourseProgressType";
 import type { Exercise } from "../../Types/ExerciseType";
 import type { QuestType } from "../../Types/QuestType";
 import type { FlatSectionTree } from "../../Types/FlatSectionTree";
+import type { CourseType } from "../../Types/CourseType";
 
 export const qo = {
   section: (sectionId: number) =>
@@ -117,7 +119,14 @@ export const qo = {
   monthlyChallenge: () =>
     queryOptions({
       queryKey: qk.monthlyChallenges(),
-      queryFn: () => getData(GET_MONTHLY_CHALLENGE_BY_USER_ID(), true),
+      queryFn: () => getData<QuestType>(GET_MONTHLY_CHALLENGE_BY_USER_ID(), true),
+      staleTime: 60_00,
+    }),
+
+  userCourses: (userId: number) =>
+    queryOptions({
+      queryKey: qk.userCourses(userId),
+      queryFn: () => getData<CourseType[]>(GET_COURSE_IDS_FOR_USER(userId)),
       staleTime: 60_00,
     }),
 };

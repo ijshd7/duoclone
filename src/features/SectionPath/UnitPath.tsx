@@ -1,6 +1,5 @@
 import { LessonButton } from "./LessonButtons/LessonButton.tsx";
 import { SectionBreak } from "../../components/atoms/LineBreaks/SectionBreak.tsx";
-import { useLessonsByUnit } from "../../queries/useQuery/useLessonByUnit.tsx";
 import { shouldInvert } from "../../constants/lessonPositionOffsets.ts";
 import Lottie from "lottie-react";
 import type { UnitType } from "../../Types/UnitType.ts";
@@ -8,7 +7,6 @@ import { useLottie } from "../../hooks/useLottie.tsx";
 import type { LessonType } from "../../Types/LessonType.ts";
 
 type UnitPathProps = {
-  id: number;
   index: number;
   unit: UnitType;
   currentLessonButtonRef: any;
@@ -16,7 +14,6 @@ type UnitPathProps = {
 };
 
 export function UnitPath({
-  id,
   index,
   currentLessonButtonRef,
   lessons,
@@ -30,7 +27,7 @@ export function UnitPath({
   const rightImageOffset = "ml-40 lg:ml-60";
 
   const imageOffset = shouldInvert(index) ? leftImageOffset : rightImageOffset;
-  
+
   return (
     <>
       {unit && unit.orderIndex != 1 && <SectionBreak lesson={unit.title} />}

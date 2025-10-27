@@ -1,4 +1,4 @@
-import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQueries} from "@tanstack/react-query";
 import type {
   FlatLesson,
   FlatSectionTree,

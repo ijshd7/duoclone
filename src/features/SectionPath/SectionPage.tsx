@@ -53,7 +53,6 @@ export function SectionPage() {
               >
                 <UnitPath
                   unit={unit}
-                  id={unit.id}
                   index={index}
                   lessons={lessons.filter((lesson) => lesson.unitId == unit.id)}
                   currentLessonButtonRef={currentLessonRef}

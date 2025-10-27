@@ -1,12 +1,13 @@
-import { useMonthlyChallenge } from "../../queries/useQuery/useMonthlyChallenge";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { qo } from "../../queries/useQuery/queries";
 import { getCurrentMonth } from "../../util/dateUtiils";
 import { MonthlyChallengeProgressBar } from "./MonthlyChallengeProgressBar";
 
 export function MonthlyChallengeCard() {
-  const { data: monthlyChallenge } = useMonthlyChallenge();
+  const { data: monthlyChallenge } = useSuspenseQuery(qo.monthlyChallenge());
 
-  const completed = monthlyChallenge?.progress ?? 0;
-  const total = monthlyChallenge?.total ?? 30;
+  const completed = monthlyChallenge.progress;
+  const total = monthlyChallenge.total;
 
   const currentMonth = getCurrentMonth();
 
