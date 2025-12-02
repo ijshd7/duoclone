@@ -10,7 +10,7 @@ I made this project a while ago and there are some architectural choices I regre
 
 ## Setup and Installation
 
-1. Clone the project using `git clone <https://github.com/jokerhutt/duoclone.git`>
+1. Clone the project using `git clone <https://github.com/jokerhutt/ludolang.git`>
 2. Run `npm i`
 3. Fill the src/constants/env.ts directory with your backend api path and google client id
 4. Adjust the src/constants/paths.ts API paths as needed
