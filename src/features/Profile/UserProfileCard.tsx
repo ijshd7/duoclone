@@ -18,7 +18,6 @@ export function UserProfileCard({
   userCourseInstances,
   isOwnPage,
 }: UserProfileCardProps) {
-
   const joinDate = getJoinDate(user.createdAt);
   const navigate = useNavigate();
 
@@ -33,7 +32,7 @@ export function UserProfileCard({
         {isOwnPage && (
           <div
             onClick={(e) => editAvatar(e)}
-            className="absolute z-2 hover:cursor-pointer rounded-2xl p-2 bg-black/8 flex items-center justify-center border top-5 right-9"
+            className="absolute z-2 hover:cursor-pointer rounded-2xl p-2 bg-mainAccent flex items-center justify-center border top-2 right-2"
           >
             <RiPencilFill className="h-8 w-8" />
           </div>
@@ -52,7 +51,7 @@ export function UserProfileCard({
             <p className="text-duoLightGray text-lg font-light">
               Joined {joinDate}
             </p>
-            <p className="text-duoBlue">{followers} Followers</p>
+            <p className="text-mainAccent">{followers} Followers</p>
           </div>
         </div>
         <div className="w-full flex flex-col justify-end items-end">

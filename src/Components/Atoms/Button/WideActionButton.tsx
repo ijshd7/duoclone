@@ -21,13 +21,13 @@ export function WideActionButton({
   activeText = "Continue",
   height = "h-14",
   icon,
-  activeColor = "active:shadow-none active:translate-y-[5px] shadow-duoGreenShadow bg-duoGreen",
-  disabledColor = "bg-duoGrayBorder",
-  activeTextColor = "text-duoGrayButtonText",
-  incorrectColor = "bg-duoRed",
-  incorrectTextColor = "text-duoBackground",
+  activeColor = "active:shadow-none active:translate-y-[5px] shadow-mainShadow bg-mainAccent",
+  disabledColor = "bg-mainAlt",
+  activeTextColor = "text-black",
+  incorrectColor = "bg-red-400",
+  incorrectTextColor = "text-mainDark",
   isIncorrect,
-  disabledTextColor = activeTextColor,
+  disabledTextColor = "text-white/40",
 }: WideActionButtonProps) {
   const textColor = isIncorrect
     ? incorrectTextColor

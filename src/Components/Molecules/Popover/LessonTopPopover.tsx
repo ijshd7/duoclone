@@ -1,5 +1,4 @@
 import type { ColorType } from "../../../Types/Enum/ColorType.ts";
-import { colorMap } from "../../../Utils/Color/colorMap.ts";
 import { PopoverArrow } from "./PopoverArrow.tsx";
 
 type LessonTopPopoverProps = {
@@ -11,11 +10,9 @@ type LessonTopPopoverProps = {
 
 export function LessonTopPopover({
   open,
-  unitColor = "LOCKED",
   lessonStatus,
   offset,
 }: LessonTopPopoverProps) {
-  const style = colorMap[unitColor];
   const text = lessonStatus == "CURRENT" ? "START" : "JUMP HERE?";
 
   return (
@@ -23,10 +20,10 @@ export function LessonTopPopover({
       {open && (
         <div className={`absolute left-1/2 -translate-x-1/2 bottom-17`}>
           <button
-            className={`rounded-xl bg-duoBackground border ${offset} border-duoGrayBorder py-2 px-4 shadow-lg bob`}
+            className={`rounded-xl bg-mainDark border ${offset} border-duoGrayBorder py-2 px-4 shadow-lg bob`}
           >
             <div
-              className={`flex w-full text-lg text-center font-bold whitespace-nowrap ${style.text}`}
+              className={`flex w-full text-lg text-center font-bold whitespace-nowrap text-mainAccent`}
             >
               {text}
             </div>

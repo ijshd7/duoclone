@@ -4,8 +4,8 @@ type LessonResultProps = {
 };
 
 export function LessonResult({ isCorrect, correctAnswer }: LessonResultProps) {
-  const correctColor = "text-duoLightGreen";
-  const incorrectColor = "text-duoIncorrectRed";
+  const correctColor = "text-mainAccent";
+  const incorrectColor = "text-red-400";
 
   const incorrectHeader = "Correct Solution:";
 

@@ -1,13 +1,16 @@
 import { useLocation, useNavigate } from "react-router";
+import { HeroIcon, type IconName } from "../../Atoms/Icons/HeroIcon";
 
 type FooterButtonProps = {
   children: React.ReactNode;
   path: string;
   navigateOn?: boolean;
+  iconName: IconName;
 };
 
 export function FooterButton({
   children,
+  iconName,
   path,
   navigateOn = true,
 }: FooterButtonProps) {
@@ -19,10 +22,10 @@ export function FooterButton({
       ? location.pathname === "/"
       : location.pathname.includes(path);
 
-  const style = isActive ? "border border-duoBlue/80 bg-duoBlue/8" : "";
+  const style = isActive ? "border border-main/80 bg-main/8" : "";
   const baseStyle = "p-2 rounded-lg";
   const hoverStyle = isActive
-    ? "hover:bg-duoBlue/20"
+    ? "hover:bg-main/20"
     : "hover:bg-duoGrayButtonText/30";
 
   const handleNavigation = () => {
@@ -36,6 +39,7 @@ export function FooterButton({
       className={`${baseStyle} ${style} ${hoverStyle} lg:flex hover:cursor-pointer lg:items-center lg:gap-6`}
       onClick={() => handleNavigation()}
     >
+      <HeroIcon className="text-mainAccent h-9" iconName={iconName} solid={isActive}/>
       {children}
     </div>
   );

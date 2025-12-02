@@ -12,26 +12,25 @@ type ProgressBarProps = {
 export function ProgressBar({
   completed,
   total,
-  barColor = "bg-duoGreen",
+  barColor = "bg-mainAccent/70",
   textColor = "text-duoLightGray",
   showCountText,
   showGoldOnComplete,
   icon,
 }: ProgressBarProps) {
-
   const isComplete = completed >= total;
 
   const progressPercentage = !isComplete ? (completed / total) * 100 : 100;
 
   const barColorToShow =
-    showGoldOnComplete && completed == total ? "bg-duoGold" : barColor;
+    showGoldOnComplete && completed == total ? "bg-mainAccent" : barColor;
   const textColorToShow =
-    showGoldOnComplete && completed == total ? "text-duoBackground" : textColor;
+    showGoldOnComplete && completed == total ? "text-mainDark" : textColor;
 
   return (
     <div className="w-full relative">
       <div
-        className={`w-full rounded-full flex items-center justify-center bg-duoGrayLocked h-5 overflow-hidden`}
+        className={`w-full rounded-full flex items-center justify-center bg-mainAlt h-5 overflow-hidden`}
       >
         <div
           className={`absolute ${barColorToShow} left-0 top-0 h-full transition-all duration-300 rounded-full`}
@@ -43,7 +42,7 @@ export function ProgressBar({
           </p>
         )}
       </div>
-      {icon && <img className="absolute -right-2 -bottom-1 h-7" src={icon} />}
+      {icon && <img className="absolute -right-2 -bottom-1 h-9" src={icon} />}
     </div>
   );
 }

@@ -4,7 +4,6 @@ import LessonPopover from "../../../Components/Molecules/Popover/LessonPopover.t
 import { CircleRing } from "../../../Components/Atoms/Button/CircleRing.tsx";
 import type { ColorType } from "../../../Types/Enum/ColorType.ts";
 import { LessonTopPopover } from "../../../Components/Molecules/Popover/LessonTopPopover.tsx";
-import { UnitReviewButton } from "./UnitReviewButton.tsx";
 import { useLessonButton } from "../../../Hooks/Logic/Catalog/useLessonButton.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "../../../Constants/QueryConstants/queries.ts";
@@ -26,8 +25,7 @@ export function LessonButton({
   unitOrderIndex,
   currentLessonButtonRef,
 }: LessonButtonProps) {
-
-  const {data: lesson} = useSuspenseQuery(qo.lesson(id))
+  const { data: lesson } = useSuspenseQuery(qo.lesson(id));
 
   const {
     open,
@@ -46,64 +44,52 @@ export function LessonButton({
   });
   const {
     isCurrent,
-    isPassedOrCurrent,
-    isReview,
     lessonStatus,
     popoverStatus,
     shouldShowBottomPopover,
     shouldShowTopPopover,
     shouldOpenTopPopover,
   } = buttonState;
-  const { lessonImage, unitColorToShow, iconOpacity, style } = styleState;
+  const { lessonImage, unitColorToShow, iconOpacity } = styleState;
 
-    return (
-      <div className="relative">
-        {isReview && isPassedOrCurrent ? (
-          <UnitReviewButton
-            currentLessonRef={containerRef}
-            style={style.reviewTrophy}
-            circleRef={circleRef}
-            handleButtonClick={handleButtonClick}
-            unitOrderIndex={unitOrderIndex}
-          />
-        ) : (
-          <CircleRing
-            unitColor={unitColorToShow}
-            offset={getOffset(courseIndex, idx)}
-            show={isCurrent}
-          >
-            <CircleButton
-              icon={lessonImage}
-              unitColor={unitColorToShow}
-              currentLessonRef={containerRef}
-              buttonRef={circleRef}
-              iconOpacity={iconOpacity}
-              extraStyle={`${open ? "translate-y-[5px] shadow-none" : ""}`}
-              onClick={handleButtonClick}
-              offset={getOffset(courseIndex, idx)}
-            />
-          </CircleRing>
-        )}
+  return (
+    <div className="relative">
+      <CircleRing
+        unitColor={unitColorToShow}
+        offset={getOffset(courseIndex, idx)}
+        show={isCurrent}
+      >
+        <CircleButton
+          icon={lessonImage}
+          unitColor={unitColorToShow}
+          currentLessonRef={containerRef}
+          buttonRef={circleRef}
+          iconOpacity={iconOpacity}
+          extraStyle={`${open ? "translate-y-[5px] shadow-none" : ""}`}
+          onClick={handleButtonClick}
+          offset={getOffset(courseIndex, idx)}
+        />
+      </CircleRing>
 
-        {shouldShowBottomPopover && (
-          <LessonPopover
-            lessonStatus={lessonStatus}
-            lessonIndex={idx}
-            lesson={lesson}
-            triggerRef={circleRef}
-            unitColor={unitColorToShow}
-            open={open}
-            onOpenChange={handleChangeOpen}
-          />
-        )}
-        {shouldShowTopPopover && (
-          <LessonTopPopover
-            offset={getOffset(courseIndex, idx)}
-            open={shouldOpenTopPopover}
-            lessonStatus={popoverStatus}
-            unitColor={unitColor}
-          />
-        )}
-      </div>
-    );
+      {shouldShowBottomPopover && (
+        <LessonPopover
+          lessonStatus={lessonStatus}
+          lessonIndex={idx}
+          lesson={lesson}
+          triggerRef={circleRef}
+          unitColor={unitColorToShow}
+          open={open}
+          onOpenChange={handleChangeOpen}
+        />
+      )}
+      {shouldShowTopPopover && (
+        <LessonTopPopover
+          offset={getOffset(courseIndex, idx)}
+          open={shouldOpenTopPopover}
+          lessonStatus={popoverStatus}
+          unitColor={unitColor}
+        />
+      )}
+    </div>
+  );
 }
